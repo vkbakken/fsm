@@ -1,0 +1,6 @@
+
+*.o
+
+*.d
+
+FSM/test-fsm
