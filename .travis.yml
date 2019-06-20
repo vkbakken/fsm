@@ -1,0 +1,16 @@
+dist: xenial
+language: c
+
+compiler: gcc
+
+script:
+ - (cd FSM && make all)
+
+notifications:
+  email:
+    recipients:
+      - liemle@mpire.vn
+      - dole@mpire.vn
+      - fastbakken@gmail.com
+    on_success: always # default: change
+    on_failure: change # default: always
