@@ -3,4 +3,5 @@
 
 *.d
 
-FSM/test-fsm
+Default/test-fsm
+Integrate/test-integrate
