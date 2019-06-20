@@ -4,8 +4,9 @@ language: c
 compiler: gcc
 
 script:
- - (cd FSM && make all)
-
+ - (cd Default && make all)
+ - (cd Integrate && make all)
+ 
 notifications:
   email:
     recipients:

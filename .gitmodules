@@ -1,0 +1,3 @@
+[submodule "os.cooperative.c"]
+	path = os.cooperative.c
+	url = https://github.com/vkbakken/os.cooperative.c.git
