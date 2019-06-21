@@ -3,5 +3,5 @@
 
 *.d
 
-Default/test-fsm
-Integrate/test-integrate
+Default/fsm
+Integrate/traffic-light

@@ -1,7 +1,7 @@
 # fsm
 FSM Framework
 
-go to "Default" directory then execute command: ```make all && ./test-fsm```to build and execute FSM test app.
+go to "Default" directory then execute command: ```make all && ./fsm```to build and execute FSM test app.
 
 The app is a simple PIN unlock form with correct sequence:
 1. press "Enter" key to begin enter PIN code.
@@ -9,4 +9,4 @@ The app is a simple PIN unlock form with correct sequence:
 3. press "Esc" key at anytime to quit the app.
 
 The traffic light is a app to integrate testing the workq and FSM work together
-go to "Integrate" directory then execute command: ```make all && ./test-integrate```to build and execute integrate test app.
+go to "Integrate" directory then execute command: ```make all && ./traffic-light```to build and execute integrate test app.

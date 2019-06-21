@@ -4,20 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../fsm.c \
-../test_traffic_light.c 
+../os.cooperative.c/workq.c 
 
 OBJS += \
-./fsm.o \
-./test_traffic_light.o 
+./os.cooperative.c/workq.o 
 
 C_DEPS += \
-./fsm.d \
-./test_traffic_light.d 
+./os.cooperative.c/workq.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-%.o: ../%.c
+os.cooperative.c/%.o: ../os.cooperative.c/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross GCC Compiler'
 	gcc -pthread -I"/home/liemlb/git/fsm" -I"/home/liemlb/git/fsm/os.cooperative.c" -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"

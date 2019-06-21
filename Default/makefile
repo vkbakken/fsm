@@ -8,27 +8,13 @@ RM := rm
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include os.cooperative.c/subdir.mk
 -include subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
-ifneq ($(strip $(CC_DEPS)),)
--include $(CC_DEPS)
-endif
-ifneq ($(strip $(C++_DEPS)),)
--include $(C++_DEPS)
-endif
-ifneq ($(strip $(C_UPPER_DEPS)),)
--include $(C_UPPER_DEPS)
-endif
-ifneq ($(strip $(CXX_DEPS)),)
--include $(CXX_DEPS)
-endif
 ifneq ($(strip $(C_DEPS)),)
 -include $(C_DEPS)
-endif
-ifneq ($(strip $(CPP_DEPS)),)
--include $(CPP_DEPS)
 endif
 endif
 
@@ -37,20 +23,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: test-fsm
+all: fsm
 
 # Tool invocations
-test-fsm: $(OBJS) $(USER_OBJS)
+fsm: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
-	@echo 'Invoking: Cross G++ Linker'
-	g++  -o "test-fsm" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Invoking: Cross GCC Linker'
+	gcc -pthread -o "fsm" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
-#	@./test-travis
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(C_DEPS)$(CPP_DEPS) test-fsm
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) fsm
 	-@echo ' '
 
 .PHONY: all clean dependents
