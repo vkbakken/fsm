@@ -5,6 +5,7 @@ compiler: gcc
 
 script:
  - (cd Default && make all)
+ - ./Default/fsm < testing.txt
  - (cd Integrate && make all)
  
 notifications:
