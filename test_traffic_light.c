@@ -169,8 +169,8 @@ static uint32_t app_init(void * const user)
             (void * const user, struct event const * const e)) &app_begin;
 
     printf("Application version: %s\n", ((struct test *) user)->version);
-    printf("Press Exit key to exit.\n");
-    printf("Press Enter key to begin traffic light app!\n");
+    printf("Enter Esc key or Ctrl-C to exit.\n");
+    printf("Enter 'r' character to begin traffic light app!\n");
 
     return 0;
 }
@@ -187,7 +187,7 @@ static uint32_t app_begin(struct test * const user,
         break;
     case Keyboard:
         if ('r' == e->key_code) {
-            printf("Press Enter key to switch the traffic light.\n");
+            printf("Enter 's' character to switch the traffic light.\n");
             printf("RED\n");
             fsm_transform(&(user->super), (uint32_t (*)
                           (void * const user, struct event const * const e))
