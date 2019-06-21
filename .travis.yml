@@ -5,7 +5,9 @@ compiler: gcc
 
 script:
  - (cd Default && make all)
+ #- ./Default/fsm < testing.txt
  - (cd Integrate && make all)
+ - ./Integrate/traffic-light < testing.txt
  
 notifications:
   email:
