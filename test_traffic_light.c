@@ -116,11 +116,7 @@ int main(void)
     pthread_create(&thread_app, NULL, tick_thread, NULL);
 
     while (true) {
-        if(-1 == system("/bin/stty raw")){}
         app_event.key_code = getchar();
-        if(-1 == system("/bin/stty cooked")){}
-        printf(" - %u\n", app_event.key_code);
-
         switch (app_event.key_code)
         {
         case 27:
@@ -130,9 +126,9 @@ int main(void)
             app_event.event.Signal = Keyboard;
             break;
         }
-
         fsm_dispatch((struct fsm * const ) &mApp,
                      (struct event const * const ) &app_event);
+
     }
 
     while (1) {
@@ -190,16 +186,18 @@ static uint32_t app_begin(struct test * const user,
         app_on_exit();
         break;
     case Keyboard:
-        if (13 == e->key_code) {
+        if ('r' == e->key_code) {
             printf("Press Enter key to switch the traffic light.\n");
-            if(-1 == system("/bin/stty cooked")){}
             printf("RED\n");
-            if(-1 == system("/bin/stty raw")){}
             fsm_transform(&(user->super), (uint32_t (*)
                           (void * const user, struct event const * const e))
                           &traffic_light_red);
             next_execute_time = tick
                     + workq_post_delayed(&wq_main, &wqi_item3, Red, tick);
+        } else if (10 == e->key_code) {
+
+        } else {
+            printf("%c - %u\n", e->key_code, e->key_code);
         }
         break;
     default:
@@ -214,9 +212,7 @@ static uint32_t traffic_light_red(struct test * const user,
     switch (e->event.Signal)
     {
     case Time:
-        if(-1 == system("/bin/stty cooked")){}
         printf("YELLOW\n");
-        if(-1 == system("/bin/stty raw")){}
         fsm_transform(&(user->super), (uint32_t (*)
                       (void * const user, struct event const * const e))
                       &traffic_light_yellow);
@@ -226,16 +222,18 @@ static uint32_t traffic_light_red(struct test * const user,
         app_on_exit();
         break;
     case Keyboard:
-        if (13 == e->key_code) {
+        if ('s' == e->key_code) {
             workq_cancel(&wq_main, &wqi_item3);
-            if(-1 == system("/bin/stty cooked")){}
             printf("YELLOW - forced switch\n");
-            if(-1 == system("/bin/stty raw")){}
             fsm_transform(&(user->super), (uint32_t (*)
                           (void * const user, struct event const * const e))
                           &traffic_light_yellow);
             next_execute_time = tick
                     + workq_post_delayed(&wq_main, &wqi_item3, Yellow, tick);
+        } else if (10 == e->key_code) {
+
+        } else {
+            printf("%c - %u\n", e->key_code, e->key_code);
         }
         break;
     default:
@@ -250,9 +248,7 @@ static uint32_t traffic_light_yellow(struct test * const user,
     switch (e->event.Signal)
     {
     case Time:
-        if(-1 == system("/bin/stty cooked")){}
         printf("GREEN\n");
-        if(-1 == system("/bin/stty raw")){}
         fsm_transform(&(user->super), (uint32_t (*)
                       (void * const user, struct event const * const e))
                       &traffic_light_green);
@@ -275,25 +271,25 @@ static uint32_t traffic_light_green(struct test * const user,
     switch (e->event.Signal)
     {
     case Time:
-        if(-1 == system("/bin/stty cooked")){}
         printf("RED\n");
-        if(-1 == system("/bin/stty raw")){}
         fsm_transform(&(user->super), (uint32_t (*)
                       (void * const user, struct event const * const e))
                       &traffic_light_red);
         workq_post_delayed(&wq_main, &wqi_item3, Red, tick);
         break;
     case Keyboard:
-        if (13 == e->key_code) {
+        if ('s' == e->key_code) {
             workq_cancel(&wq_main, &wqi_item3);
-            if(-1 == system("/bin/stty cooked")){}
             printf("RED - forced switch\n");
-            if(-1 == system("/bin/stty raw")){}
             fsm_transform(&(user->super), (uint32_t (*)
                           (void * const user, struct event const * const e))
                           &traffic_light_red);
             next_execute_time = tick
                     + workq_post_delayed(&wq_main, &wqi_item3, Red, tick);
+        } else if (10 == e->key_code) {
+
+        } else {
+            printf("%c - %u\n", e->key_code, e->key_code);
         }
         break;
     case Exit:
