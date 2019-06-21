@@ -62,9 +62,9 @@ int main(void)
     fsm_init((struct fsm * const ) &mApp);
 
     while (true) {
-        system("/bin/stty raw");
+        if(-1 == system("/bin/stty raw")){}
         app_event.key_code = getchar();
-        system("/bin/stty cooked");
+        if(-1 == system("/bin/stty cooked")){}
         printf(" - %u\n", app_event.key_code);
 
         switch (app_event.key_code)

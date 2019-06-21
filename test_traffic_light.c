@@ -116,9 +116,9 @@ int main(void)
     pthread_create(&thread_app, NULL, tick_thread, NULL);
 
     while (true) {
-        system("/bin/stty raw");
+        if(-1 == system("/bin/stty raw")){}
         app_event.key_code = getchar();
-        system("/bin/stty cooked");
+        if(-1 == system("/bin/stty cooked")){}
         printf(" - %u\n", app_event.key_code);
 
         switch (app_event.key_code)
@@ -192,9 +192,9 @@ static uint32_t app_begin(struct test * const user,
     case Keyboard:
         if (13 == e->key_code) {
             printf("Press Enter key to switch the traffic light.\n");
-            system("/bin/stty cooked");
+            if(-1 == system("/bin/stty cooked")){}
             printf("RED\n");
-            system("/bin/stty raw");
+            if(-1 == system("/bin/stty raw")){}
             fsm_transform(&(user->super), (uint32_t (*)
                           (void * const user, struct event const * const e))
                           &traffic_light_red);
@@ -214,9 +214,9 @@ static uint32_t traffic_light_red(struct test * const user,
     switch (e->event.Signal)
     {
     case Time:
-        system("/bin/stty cooked");
+        if(-1 == system("/bin/stty cooked")){}
         printf("YELLOW\n");
-        system("/bin/stty raw");
+        if(-1 == system("/bin/stty raw")){}
         fsm_transform(&(user->super), (uint32_t (*)
                       (void * const user, struct event const * const e))
                       &traffic_light_yellow);
@@ -228,9 +228,9 @@ static uint32_t traffic_light_red(struct test * const user,
     case Keyboard:
         if (13 == e->key_code) {
             workq_cancel(&wq_main, &wqi_item3);
-            system("/bin/stty cooked");
+            if(-1 == system("/bin/stty cooked")){}
             printf("YELLOW - forced switch\n");
-            system("/bin/stty raw");
+            if(-1 == system("/bin/stty raw")){}
             fsm_transform(&(user->super), (uint32_t (*)
                           (void * const user, struct event const * const e))
                           &traffic_light_yellow);
@@ -250,9 +250,9 @@ static uint32_t traffic_light_yellow(struct test * const user,
     switch (e->event.Signal)
     {
     case Time:
-        system("/bin/stty cooked");
+        if(-1 == system("/bin/stty cooked")){}
         printf("GREEN\n");
-        system("/bin/stty raw");
+        if(-1 == system("/bin/stty raw")){}
         fsm_transform(&(user->super), (uint32_t (*)
                       (void * const user, struct event const * const e))
                       &traffic_light_green);
@@ -275,9 +275,9 @@ static uint32_t traffic_light_green(struct test * const user,
     switch (e->event.Signal)
     {
     case Time:
-        system("/bin/stty cooked");
+        if(-1 == system("/bin/stty cooked")){}
         printf("RED\n");
-        system("/bin/stty raw");
+        if(-1 == system("/bin/stty raw")){}
         fsm_transform(&(user->super), (uint32_t (*)
                       (void * const user, struct event const * const e))
                       &traffic_light_red);
@@ -286,9 +286,9 @@ static uint32_t traffic_light_green(struct test * const user,
     case Keyboard:
         if (13 == e->key_code) {
             workq_cancel(&wq_main, &wqi_item3);
-            system("/bin/stty cooked");
+            if(-1 == system("/bin/stty cooked")){}
             printf("RED - forced switch\n");
-            system("/bin/stty raw");
+            if(-1 == system("/bin/stty raw")){}
             fsm_transform(&(user->super), (uint32_t (*)
                           (void * const user, struct event const * const e))
                           &traffic_light_red);
